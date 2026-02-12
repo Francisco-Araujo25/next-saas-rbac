@@ -1,8 +1,18 @@
 {
   "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
+    { "directory": "apps/api", "changeProcessCWD": true },
+    { "directory": "apps/web", "changeProcessCWD": true },
+    { "directory": "packages/auth", "changeProcessCWD": true },
+    { "directory": "packages/env", "changeProcessCWD": true }
   ],
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.suggest.autoImports": true,
+  "typescript.suggest.autoImports": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/pnpm-lock.yaml": true
+  },
   "prisma.pinToPrisma6": true
 }
