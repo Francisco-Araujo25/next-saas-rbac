@@ -1,5 +1,5 @@
 {
-    "extends": "@saas/tsconfig/library.json",
+    "extends": "../config/typescript-config/library.json",
     "compilerOptions": {
         "moduleResolution": "Node16",
         "module": "Node16"

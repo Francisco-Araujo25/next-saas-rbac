@@ -1,5 +1,5 @@
 {
-    "extends": "config/typescript-config/library.json",
+    "extends": "../config/typescript-config/library.json",
     "compilerOptions": {
         "moduleResolution": "node",
         "module": "Node16"
