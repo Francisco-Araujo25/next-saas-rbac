@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
         response.cookies.delete('org')
     }
 
-    return 
+     
 }
 
 export const config = {

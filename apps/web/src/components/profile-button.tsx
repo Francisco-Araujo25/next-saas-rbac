@@ -1,7 +1,9 @@
 import { ChevronDown, LogOut } from "lucide-react";
+
+import { auth } from "@/auth/auth";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { auth } from "@/auth/auth";
 
 function getInitials(name: string): string {
   if (!name) return "??"

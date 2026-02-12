@@ -1,11 +1,12 @@
-
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { ChevronsUpDown, PlusCircle } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import Link from "next/link";
-import { getOrganizations } from "@/http/get-organizations";
 import { cookies } from "next/headers";
+import Link from "next/link";
+
 import { getCurrentOrg } from "@/auth/auth";
+import { getOrganizations } from "@/http/get-organizations";
+
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export async function OrganizationSwitcher() {
     const cookieStore = await cookies()
@@ -32,7 +33,7 @@ export async function OrganizationSwitcher() {
                 )}
                 <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" alignOffset={-16} className="w-[200px]" sideOffset={12}> //sideOffset da distanciamento depois do Trigger clicado.
+            <DropdownMenuContent align="end" alignOffset={-16} className="w-[200px]" sideOffset={12}>
                 <DropdownMenuGroup>
                     <DropdownMenuLabel>Organizations</DropdownMenuLabel>
                     {organizations.map(organization => {

@@ -1,13 +1,15 @@
-import brickbybrickIcon from '@/assets/brickbybrick-icon.png'
-import Image from 'next/image'
-import { ProfileButton } from './profile-button'
 import { Slash } from 'lucide-react'
-import { OrganizationSwitcher } from './organization-switcher'
+import Image from 'next/image'
+
+import brickbybrickIcon from '@/assets/brickbybrick-icon.png'
 import { ability } from '@/auth/auth'
-import { Separator } from './ui/separator'
-import { ThemeSwitcher } from './theme/theme-switcher'
-import { ProjectSwitcher } from './project-switcher'
+
+import { OrganizationSwitcher } from './organization-switcher'
 import { PendingInvites } from './pending-invites'
+import { ProfileButton } from './profile-button'
+import { ProjectSwitcher } from './project-switcher'
+import { ThemeSwitcher } from './theme/theme-switcher'
+import { Separator } from './ui/separator'
 
 export async function Header() {
     const permissions = await ability()

@@ -1,10 +1,11 @@
 import { OrganizationForm } from "@/app/(app)/org/organization-form"
 import { ability, getCurrentOrg } from "@/auth/auth"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShutdownOrganizationButton } from "./shutdown-organization-button"
-import { getOrganizations } from "@/http/get-organizations"
 import { getOrganization } from "@/http/get-organization"
+import { getOrganizations } from "@/http/get-organizations"
+
 import { Billing } from "./billing"
+import { ShutdownOrganizationButton } from "./shutdown-organization-button"
 
 export default async function Settings() {
 

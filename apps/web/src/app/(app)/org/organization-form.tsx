@@ -1,12 +1,14 @@
 'use client'
+import { AlertTriangle, Loader2 } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormState } from "@/hooks/use-form-state";
+
 import { createOrganizationAction, OrganizationSchema, updateOrganizationAction } from "./actions";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertTriangle, Loader2 } from "lucide-react";
 
 interface OrganizationFormProps {
     isUpdating?: boolean
@@ -31,7 +33,7 @@ export function OrganizationForm({
                         <p>{message}</p>
                     </AlertDescription>
                 </Alert>
-            ) } 
+            ) }
 
               {success === true && message && (
                 <Alert variant="success">
@@ -41,7 +43,7 @@ export function OrganizationForm({
                         <p>{message}</p>
                     </AlertDescription>
                 </Alert>
-            ) } 
+            ) }
 
             <div className="space-y-1">
                 <Label htmlFor="name">Organization name</Label>
@@ -56,7 +58,7 @@ export function OrganizationForm({
 
                <div className="space-y-1">
                 <Label htmlFor="domain">E-mail domain</Label>
-                <Input name="domain" type="text" id="domain"  inputMode="url"  placeholder="example.com" defaultValue={initialData?.domain ?? undefined}/> //inputMode="url" formato de teclado expecifico como .com
+                <Input name="domain" type="text" id="domain" inputMode="url" placeholder="example.com" defaultValue={initialData?.domain ?? undefined} />
 
                 {errors?.domain && (
                     <p className="text-xs font-medium text-red-500 dark:text-red-400">
@@ -66,15 +68,17 @@ export function OrganizationForm({
             </div>
 
             <div className="space-y-1">
-                <div className="flex items-baseline space-x-2"></div> //items-baseline alinhados na mesma linha do texto, independente do tamanho
-            <div className="translate-y-0.5">
-                <Checkbox name="shouldAttachUsersByDomain" id="shouldAttachUsersByDomain"  defaultChecked={initialData?.shouldAttachUsersByDomain} />
-            </div>
+                <div className="flex items-baseline space-x-2">
+                    <div className="translate-y-0.5">
+                        <Checkbox name="shouldAttachUsersByDomain" id="shouldAttachUsersByDomain"  defaultChecked={initialData?.shouldAttachUsersByDomain} />
+                    </div>
+                </div>
                 <label htmlFor="shouldAttachUsersByDomain" className="space-y-1">
                     <span className="text-sm font-medium leading-none">
                         Auto-join new members
                     </span>
-                    <p className="text-sm text-muted-foreground">This will automatically invite all members with same e-mail to 
+                    <p className="text-sm text-muted-foreground">
+                        This will automatically invite all members with same e-mail to
                         domain this organization.
                     </p>
                 </label>

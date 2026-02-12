@@ -1,13 +1,15 @@
 'use client'
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronsUpDown, Loader2, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { getProjects } from "@/http/get-projects";
-import { useQuery } from "@tanstack/react-query";
+
 import { getCurrentOrg } from "@/auth/auth";
+import { getProjects } from "@/http/get-projects";
+
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Skeleton } from "./ui/skeleton";
 export function ProjectSwitcher() {
 
@@ -58,7 +60,7 @@ export function ProjectSwitcher() {
                     <ChevronsUpDown className="ml-auto size-4 text-muted-foreground shrink-0" />
                 )}
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" alignOffset={-16} className="w-[200px]" sideOffset={12}> //sideOffset da distanciamento depois do Trigger clicado.
+            <DropdownMenuContent align="end" alignOffset={-16} className="w-[200px]" sideOffset={12}>
                 <DropdownMenuGroup>
                     <DropdownMenuLabel>Projects</DropdownMenuLabel>
                      { data && data.projects.map(project => {

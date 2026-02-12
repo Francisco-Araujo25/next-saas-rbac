@@ -1,7 +1,8 @@
 'use server'
 
-import { z } from 'zod'
 import { HTTPError } from 'ky'
+import { z } from 'zod'
+
 import { signUp } from '@/http/sign-up'
 
 const signUpSchema = z.object({

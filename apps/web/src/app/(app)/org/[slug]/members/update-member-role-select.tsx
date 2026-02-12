@@ -1,8 +1,10 @@
 'use client'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Role } from "@saas/auth";
 import { ComponentProps } from "react";
+
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { updateMemberAction } from "./actions";
 
 interface UpdateMemberRoleSelectProps extends ComponentProps<typeof Select> {

@@ -1,7 +1,8 @@
 'use server'
 
-import { acceptInvite } from "@/http/accept-invite";
 import { revalidateTag } from "next/cache";
+
+import { acceptInvite } from "@/http/accept-invite";
 
 export async function acceptInviteAction(inviteId: string) {
     await acceptInvite(inviteId)
