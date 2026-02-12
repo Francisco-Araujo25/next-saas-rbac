@@ -5,6 +5,7 @@
   "private": true,
   "exports": {
     "./library": "./library.js",
+    "./next": "./next.js",
     "./next-js": "./next.js",
     "./node.js": "./node.js"
   },
@@ -13,8 +14,6 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "@saas/prettier": "workspace:*"
   },
-  "prettier": "@saas/prettier",
-  "eslintConfig": {
-    "extends": ["./library.js"]
-  }
+  "prettier": "@saas/prettier"
 }
+
