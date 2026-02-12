@@ -20,7 +20,7 @@ export async function Header() {
             <Image src={brickbybrickIcon} alt="Brick by Brick Logo" className="w-6 h-6" />
           </div>
           <span className="font-display font-semibold text-foreground text-lg hidden sm:block">
-            Brick by Brick
+            Brick Labs
           </span>
         </a>
 
