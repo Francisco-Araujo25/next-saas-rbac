@@ -2,12 +2,12 @@
   "name": "@saas/api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "pnpm env:load tsx watch src/http/server.ts",
-    "db:migrate": "pnpm env:load prisma migrate dev",
-    "db:studio": "pnpm env:load prisma studio",
-    "env:load": "dotenv -e ../../.env --",
-    "build": "tsup",
-"start": "node dist/src/http/server.js"
+    "dev": "tsx watch src/http/server.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "build": "prisma generate && tsup",
+    "start": "node dist/server.js",
+    "start:prod": "pnpm db:migrate deploy && pnpm prisma generate && pnpm start"
   },
   "dependencies": {
     "@fastify/cors": "9.0.1",

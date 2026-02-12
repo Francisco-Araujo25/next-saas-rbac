@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-    entry: ['src'],
+    entry: ['src/http/server.ts'],
     splitting: false,
     sourcemap: true,
     clean: true,
@@ -9,4 +9,6 @@ export default defineConfig({
         '@saas/auth',
         '@saas/env'
     ],
+    outDir: 'dist',
+    format: 'cjs',
 })

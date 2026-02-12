@@ -4,10 +4,10 @@ import fastifyJwt from '@fastify/jwt'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
 import {
-    jsonSchemaTransform,  
+    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
-    ZodTypeProvider,  
+    ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { createAccount } from './routes/auth/create-account'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
@@ -28,7 +28,6 @@ import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
 import { getProject } from './routes/projects/get-project'
 import { getProjects } from './routes/projects/get-projects'
-import { get } from 'node:http'
 import { updateProject } from './routes/projects/update-project'
 import { getMembers } from './routes/members/get-members'
 import { removeMember } from './routes/members/remove-member'
@@ -41,6 +40,8 @@ import { revokeInvite } from './routes/invites/revoke-invite'
 import { getPendingInvites } from './routes/invites/get-pending-invites'
 import { getOrganizationBilling } from './routes/billing/get-organization-billing'
 
+// Env validation is done automatically by @saas/env on import
+// If DATABASE_URL is invalid, the app will crash here with a clear error
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
