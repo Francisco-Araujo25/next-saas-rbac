@@ -1,0 +1,7 @@
+{
+    "extends": "@saas/tsconfig/library.json",
+    "compilerOptions": {
+        "moduleResolution": "node16"
+    },
+    "include": ["index.ts"]
+}
