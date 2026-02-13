@@ -13,9 +13,9 @@ export default async function AppLayout({
         redirect('/auth/sign-in')
     }
 
-    return  <>
+    return(   <>
     {children}
     {sheet}
     </>
-
+    )
 }

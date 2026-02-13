@@ -6,7 +6,8 @@ import { getMembership } from "@/http/get-membership";
 import { getProfile } from "@/http/get-profile";
 
 export async function isAuthenticated() {
-    return !!cookies().then(cookies => cookies.get('token')?.value)
+    const token = (await cookies()).get('token')?.value
+    return !!token
 }
 
 export async function getCurrentOrg(){
