@@ -7,27 +7,37 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 function getInitials(name: string): string {
   if (!name) return "??"
-
+  
   const words = name.trim().split(" ")
+  
   if (words.length === 1) {
     return words[0].slice(0, 2).toUpperCase()
   }
-
+  
   return words.slice(0, 2).map(word => word.charAt(0).toUpperCase()).join("")
 }
 
 export async function ProfileButton() {
-    const { user } = await auth()
-
+    let user
+    
+    try {
+        const result = await auth()
+        user = result.user
+    } catch (error) {
+        console.error('ProfileButton: Failed to get user', error)
+        // Se falhar, não renderiza nada
+        return null
+    }
+    
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-3 outline-none">
                 <div className="flex flex-col items-end">
-                <span className="text-sm font-medium">{user.name}</span>
-                <span className="text-xs text-muted-foreground">{user.email}</span>
+                    <span className="text-sm font-medium">{user.name}</span>
+                    <span className="text-xs text-muted-foreground">{user.email}</span>
                 </div>
                 <Avatar className="size-8">
-                     {typeof user.avatarUrl === "string" && <AvatarImage src={user.avatarUrl} />}
+                    {typeof user.avatarUrl === "string" && <AvatarImage src={user.avatarUrl} />}
                     <AvatarFallback>{getInitials(user.name ?? "")}</AvatarFallback>
                 </Avatar>
                 <ChevronDown className="size-4 text-muted-foreground" />
@@ -35,12 +45,11 @@ export async function ProfileButton() {
             <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
                     <a href="/api/auth/sign-out">
-                    <LogOut className="mr-2 size-4" />
+                        <LogOut className="mr-2 size-4" />
                         Sign Out
                     </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
-
 }
