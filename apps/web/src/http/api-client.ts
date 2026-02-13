@@ -1,5 +1,5 @@
 import type { CookiesFn } from 'cookies-next'
-import cookiesNext from 'cookies-next'
+import { getCookie } from 'cookies-next'   //mudar para { getCookie }
 import ky from 'ky'
 
 export const api = ky.create({
@@ -14,8 +14,8 @@ export const api = ky.create({
           const { cookies: serverCookies } = await import('next/headers')
          cookieStore = serverCookies
         } 
-        
-          const token = cookiesNext.getCookie('token', { cookies: cookieStore })
+                        //retirar cookiesNext se não funcionar
+          const token = getCookie('token', { cookies: cookieStore })
 
             if (token) {
             request.headers.set('Authorization', `Bearer ${token}`)
