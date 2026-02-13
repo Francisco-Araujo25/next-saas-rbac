@@ -16,22 +16,21 @@ import { getInvite } from "@/http/get-invite"
 dayjs.extend(relativeTime)
 
 interface InvitePageProps {
-    params: {
+    params: Promise<{ //mudança no Promise
         id: string
-    }
+    }>
 }
 
 export default async function InvitePage({ params }: InvitePageProps) {
-    const inviteId = params.id
+    const { id: inviteId } = await params // mudança await params
 
     const { invite } = await getInvite(inviteId)
-    const  isUserAuthenticated = isAuthenticated()
+    const  isUserAuthenticated = await isAuthenticated() //await aqui
 
     let currentUserEmail = null
 
-    if (await isUserAuthenticated) {
+    if ( isUserAuthenticated) { //await removido
         const { user } = await auth()
-
         currentUserEmail = user.email
     }
 
@@ -39,9 +38,8 @@ export default async function InvitePage({ params }: InvitePageProps) {
 
     async function signInFromInvite() {
         'use server'
-
-        ;(await cookies()).set('inviteId', inviteId)
-
+        const cookieStore = await cookies()
+        cookieStore.set('inviteId', inviteId)
         redirect(`/auth/sign-in?email=${invite.email}`)
     }
 
@@ -106,7 +104,7 @@ export default async function InvitePage({ params }: InvitePageProps) {
 
                               <Button className="w-full" variant="outline" asChild>
                                 <Link href="/">
-                                    Back to dashhboard
+                                    Back to dashboard
                                 </Link>
                             </Button>
                         </div>
