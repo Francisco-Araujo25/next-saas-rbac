@@ -7,8 +7,7 @@
     "devDependencies": {
         "@saas/eslint-config": "workspace:*",
         "@saas/prettier": "workspace:*",
-        "@saas/tsconfig": "workspace:*",
-        "@types/bcryptjs": "^3.0.0"
+        "@saas/tsconfig": "workspace:*"
     },
     "eslintConfig": {
         "extends": [
