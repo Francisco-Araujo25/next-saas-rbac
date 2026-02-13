@@ -6,6 +6,8 @@
         "paths": {
             "@/*": ["./src/*"]
         },
+          "skipLibCheck": true,
+            "types": [],
         "moduleResolution": "node"
     }
 }
