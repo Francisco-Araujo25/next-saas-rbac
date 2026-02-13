@@ -2,6 +2,7 @@
 
 import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { acceptInvite } from '@/http/accept-invite'
@@ -14,51 +15,47 @@ const signInSchema = z.object({
 
 export async function signInWithEmailAndPassword(data: FormData) {
     const result = signInSchema.safeParse(Object.fromEntries(data))
-
+    
     if (!result.success) {
-        const errors =  result.error.flatten().fieldErrors
-
+        const errors = result.error.flatten().fieldErrors
         return { success: false, message: null, errors }
     }
 
     const { email, password } = result.data
 
-
     try {
-           
-    const { token }= await signInWithPassword({
-        email,
-        password,
-    })
+        const { token } = await signInWithPassword({
+            email,
+            password,
+        })
 
-     ;(await cookies()).set('token', token, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-    })
+        const cookieStore = await cookies()
+        cookieStore.set('token', token, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+        })
 
-    
-     const inviteId = (await cookies()).get('invaliteId')?.value
+        const inviteId = cookieStore.get('inviteId')?.value  // ✅ Corrigido de 'invaliteId'
+
         if (inviteId) {
-                try {
-                    await acceptInvite(inviteId)
-                    ;(await cookies()).delete('inviteId')
-                } catch {}
-            }
-
+            try {
+                await acceptInvite(inviteId)
+                cookieStore.delete('inviteId')
+            } catch {}
+        }
     } catch (err) {
         if (err instanceof HTTPError) {
             const { message } = await err.response.json()
-
             return { success: false, message, errors: null }
         }
 
         console.error(err)
-        return { 
+        return {
             success: false,
-             message: 'Unexpected error try again in a few minutes', 
-             errors: null,
-         }
+            message: 'Unexpected error try again in a few minutes',
+            errors: null,
+        }
     }
 
-    return { success: true, message: null, errors: null }
+    redirect('/')  // ✅ Adiciona redirect após login bem-sucedido
 }
