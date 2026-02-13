@@ -3,10 +3,12 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
    const redirectUrl = request.nextUrl.clone()
-
-        redirectUrl.pathname = '/auth/sign-in'
-
-
-        ;(await cookies()).delete('token')
-        return NextResponse.redirect(redirectUrl)
-} 
+   
+   redirectUrl.pathname = '/auth/sign-in'
+   
+   const cookieStore = await cookies()
+   cookieStore.delete('token')
+   cookieStore.delete('org')  // ✅ Adiciona essa linha
+   
+   return NextResponse.redirect(redirectUrl)
+}
