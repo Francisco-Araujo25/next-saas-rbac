@@ -16,13 +16,14 @@ import Link from "next/link"
 dayjs.extend(relativeTime)
 
 interface ProjectPageProps {
-    params: {
+    params: Promise<{
         slug: string
         project: string
-    }
+    }>
 }
 
 export default async function Project({ params }: ProjectPageProps) {
+    const { slug, project: projectSlug } = await params
     const currentOrg = await getCurrentOrg()
     const permissions = await ability()
 
