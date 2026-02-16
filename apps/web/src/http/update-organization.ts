@@ -5,7 +5,7 @@ interface UpdateOrganizationRequest {
     name: string
     domain: string | null
     shouldAttachUsersByDomain: boolean
-    avatar?: File  // ✅ Adiciona
+    avatar?: string | null
 }
 
 type UpdateOrganizationResponse = void
@@ -22,7 +22,7 @@ export async function updateOrganization({
             name,
             domain,
             shouldAttachUsersByDomain,
-            avatar,  // ✅ Adiciona
+            avatarUrl: avatar,
         },
     })
 }

@@ -4,7 +4,7 @@ interface CreateOrganizationRequest {
     name: string
     domain: string | null
     shouldAttachUsersByDomain: boolean
-    avatar?: File | null
+    avatar?: string | null
 }
 
 type CreateOrganizationResponse = void
@@ -21,7 +21,7 @@ export async function createOrganization({
             name,
             domain,
             shouldAttachUsersByDomain,
-            avatar,
+            avatarUrl: avatar, // Enviamos a string Base64 para o backend
         },
     })
 }
