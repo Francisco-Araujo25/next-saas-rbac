@@ -31,7 +31,7 @@ export default async function Project({ params }: ProjectPageProps) {
         redirect('/')
     }
 
-    const { project } = await getProject(currentOrg, params.project)
+    const { project } = await getProject(currentOrg, projectSlug)
 
     const canUpdateProject = permissions?.can('update', 'Project')
     const canDeleteProject = permissions?.can('delete', 'Project')
