@@ -30,8 +30,8 @@ export async function OrganizationSwitcher() {
                 { currentOrganization ? (
                     <>
            <Avatar className="mr-2 size-4">
-                {currentOrganization.avatarUrl ? (
-                    <AvatarImage src={currentOrganization.avatarUrl} />
+                {currentOrganization.avatarUrl  && typeof currentOrganization.avatarUrl === 'string' && ({ src: currentOrganization.avatarUrl }) ? (
+                    <AvatarImage src={currentOrganization.avatarUrl } />
                 ) : null}
                 {/* O Fallback aparece se a imagem for null ou falhar */}
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-[8px] text-white">
