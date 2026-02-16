@@ -35,7 +35,7 @@ export async function OrganizationSwitcher() {
                 ) : null}
                 {/* O Fallback aparece se a imagem for null ou falhar */}
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-[8px] text-white">
-                    {getInitials(currentOrganization.name)}
+                    {getInitials(currentOrganization.name ?? "Org")}
                 </AvatarFallback>
             </Avatar>
                   <span className="truncate text-left">{currentOrganization.name}</span>
