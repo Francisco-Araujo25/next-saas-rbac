@@ -99,7 +99,7 @@ export async function createOrganizationAction(data: FormData) {
       name,
       domain,
       shouldAttachUsersByDomain,
-      avatar: avatarUrl,
+      avatar: avatarUrl, // Enviamos a string Base64 para o backend
     })
 
     revalidateTag('organizations')
