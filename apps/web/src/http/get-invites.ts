@@ -3,16 +3,18 @@ import { Role } from "@saas/auth";
 import { api } from "./api-client"
 
 interface GetInvitesResponse {
-   invites: {
-    id: string
-    role: Role
-    email: string
-    createdAt: string
-    author: {
-        id: string
-        name: string | null
-    } | null
-    }[]
+invites: Array<{
+        invite: {  // ✅ Adiciona o wrapper
+            id: string
+            role: 'ADMIN' | 'MEMBER' | 'BILLING'
+            email: string
+            createdAt: string
+            author: {
+                id: string
+                name: string | null
+            } | null
+        }
+    }>
 }
 
 export async function getInvites(org: string) {

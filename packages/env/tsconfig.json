@@ -1,8 +1,0 @@
-{
-    "extends": "../config/typescript-config/library.json",
-    "compilerOptions": {
-        "moduleResolution": "node16",
-        "module": "Node16"
-    },
-    "include": ["index.ts"]
-}

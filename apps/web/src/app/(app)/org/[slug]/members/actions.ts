@@ -86,7 +86,11 @@ export async function updateMemberAction(memberId: string, role: Role) {
     revalidateTag(`${currentOrg}/members`)
 }
 
-export async function revokeInviteAction(inviteId: string) {
+export async function revokeInviteAction(data: FormData) {
+    const inviteId = data.get('inviteId') as string
+
+    console.log('🔍 InviteId recebido:', inviteId)  // ✅ Debug
+    console.log('🔍 FormData completo:', Object.fromEntries(data))  // ✅ Debug
        // Correção: getCurrentOrg é uma função async, precisa de () para chamar e await para aguardar
        const currentOrg = await getCurrentOrg()
 

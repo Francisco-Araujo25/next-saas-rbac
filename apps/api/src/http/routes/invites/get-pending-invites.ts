@@ -59,7 +59,7 @@ export async function getPendingInvites(app: FastifyInstance) {
                 id: true,
                 email: true,
                 role: true,
-                CreatedAt: true,
+                createdAt: true,
                         organization: {   // <-- adicionado
                         select: { name: true },
                         },
@@ -83,7 +83,7 @@ export async function getPendingInvites(app: FastifyInstance) {
             id: invite.id,
             email: invite.email,
             role: invite.role,
-            createdAt: invite.CreatedAt, // 👈 tradução obrigatória
+            createdAt: invite.createdAt, // 👈 tradução obrigatória
 
             organization: {
             name: invite.organization.name,

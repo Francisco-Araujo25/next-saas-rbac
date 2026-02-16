@@ -13,7 +13,7 @@ model User {
   email        String   @unique
   passwordHash String?  @map("password_hash")
   avatarUrl    String?  @map("avatar_url")
-  CreatedAt    DateTime @default(now()) @map("created_at")
+  createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   tokens             Token[]
@@ -33,7 +33,7 @@ enum TokenType {
 model Token {
   id        String    @id @default(uuid())
   type      TokenType
-  CreatedAt DateTime  @default(now()) @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
@@ -68,7 +68,7 @@ model Invite {
   id        String   @id @default(uuid())
   email     String
   role      Role
-  CreatedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
   author User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String? @map("author_id")
@@ -102,7 +102,7 @@ model Organization {
   domain                    String?  @unique
   shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
   avatarUrl                 String?  @map("avatar_url")
-  CreatedAt                 DateTime @default(now()) @map("created_at")
+  createdAt                 DateTime @default(now()) @map("created_at")
   updatedAt                 DateTime @updatedAt @map("updated_at")
 
   owner  User   @relation(fields: [ownerId], references: [id])
@@ -121,7 +121,7 @@ model Project {
   description String?
   slug        String   @unique
   avatarUrl   String?  @map("avatar_url")
-  CreatedAt   DateTime @default(now()) @map("created_at")
+  createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)

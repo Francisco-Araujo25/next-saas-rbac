@@ -51,6 +51,8 @@ export async function Billing() {
                                 {formatCurrency(billing.seats.price)} ({formatCurrency(billing.seats.unit)} each)
                             </TableCell>
                         </TableRow>
+                         </TableBody> 
+
                         <TableFooter>
                         <TableRow>
                             <TableCell />
@@ -59,7 +61,6 @@ export async function Billing() {
                              <TableCell className="text-right">{formatCurrency(billing.total)}</TableCell>
                         </TableRow>
                         </TableFooter>
-                    </TableBody>
                 </Table>
             </CardContent>
         </Card>

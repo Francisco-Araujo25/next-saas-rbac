@@ -8,5 +8,5 @@ export async function shutdownOrganization({
   org
 }:   ShutdownOrganizationRequest) {
      await api
-    .delete(`organizations/$[org]`)
+    .delete(`organizations/${org}`)
 }

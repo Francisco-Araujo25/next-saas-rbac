@@ -1,8 +1,6 @@
-
-import { ProjectForm } from "@/app/(app)/org/[slug]/create-project/project-form";
+import { ProjectForm } from '@/app/(app)/org/[slug]/create-project/project-form'
 import { InterceptedSheetContent } from '@/components/intercepted-sheet-content'
-import { Sheet, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-
+import { Sheet, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 
 export default function CreateProject() {
     return (
@@ -11,11 +9,10 @@ export default function CreateProject() {
                 <SheetHeader>
                     <SheetTitle>Create Project</SheetTitle>
                 </SheetHeader>
-            <div className="py-4">
-                <ProjectForm />
-            </div>
+                <div className='py-4'>
+                    <ProjectForm />
+                </div>
             </InterceptedSheetContent>
         </Sheet>
     )
 }
-

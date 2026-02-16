@@ -20,9 +20,9 @@ export async function getProjects(app: FastifyInstance) {
             security: [{ bearerAuth: [] }],
             params: z.object({
                 slug: z.string(),
-                projectSlug: z.string().uuid(),
+                //projectSlug: z.string().uuid(), -> removido por enquanto
             }),
-             response: {
+            response: {
              200: z.object({
                     projects: z.array(
                         z.object({
@@ -33,7 +33,7 @@ export async function getProjects(app: FastifyInstance) {
                         avatarUrl: z.string().url().nullable(),
                         organizationId: z.string().uuid(),
                         ownerId: z.string().uuid(),
-                        CreatedAt: z.date(),
+                        createdAt: z.date(),
                         owner: z.object({
                             id: z.string().uuid(),
                             name:  z.string().nullable(),
@@ -46,17 +46,22 @@ export async function getProjects(app: FastifyInstance) {
         },
     }, 
     async (request, reply) => {
-        const { slug } = request.params
-        const userId = await request.getCurrentUserId()
-        const { organization, membership } = await request.getUserMembership(slug)
 
-        const { cannot } = getUserPermissions(userId, membership.role)
+    
+    const { slug } = request.params
 
-        if (cannot('get', 'Project')) {
-            throw new UnauthorizedError(
-                `You're not allowed to see organization projects.`
-            )
-        }
+    const userId = await request.getCurrentUserId()
+
+    const { organization, membership } = await request.getUserMembership(slug)
+
+
+    const { cannot } = getUserPermissions(userId, membership.role)
+
+    if (cannot('get', 'Project')) {
+        throw new UnauthorizedError(
+            `You're not allowed to see organization projects.`
+        )
+    }
 
         const projects = await prisma.project.findMany({
             select: {
@@ -67,7 +72,7 @@ export async function getProjects(app: FastifyInstance) {
                 ownerId: true,
                 avatarUrl: true,
                 organizationId: true,
-                CreatedAt: true,
+                createdAt: true,
                 owner: {
                     select: {
                         id: true,
@@ -80,7 +85,7 @@ export async function getProjects(app: FastifyInstance) {
                 organizationId: organization.id,
             },
             orderBy: {
-                CreatedAt: 'desc',
+                createdAt: 'desc',
             },
         })
 

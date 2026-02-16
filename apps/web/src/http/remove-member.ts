@@ -10,5 +10,5 @@ export async function removeMember({
   memberId,
 }:   RemoveMemberRequest) {
      await api
-    .delete(`organizations/$[org]/members/${memberId}`)
+    .delete(`organizations/${org}/members/${memberId}`)
 }

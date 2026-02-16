@@ -39,7 +39,7 @@ export function defineAbilityFor(user: User) {
     const builder = new AbilityBuilder(createAppAbility)
 
     if (typeof permissions[user.role] !== 'function') {
-        throw new Error(`No permissions defined for role "${user.role}" not found.`);
+             throw new Error(`No permissions defined for role "${user.role}" not found.`);  // ✅ Também corrige o template string
     }
 
     permissions[user.role](user, builder);
@@ -52,7 +52,7 @@ export function defineAbilityFor(user: User) {
 
 
     ability.can = ability.can.bind(ability)
-     ability.cannot = ability.can.bind(ability)
+      ability.cannot = ability.cannot.bind(ability)
 
     return ability;
 }

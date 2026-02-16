@@ -62,7 +62,7 @@ export async function getInvites(app: FastifyInstance) {
                 id:  true,
                 email: true,
                 role: true,
-                CreatedAt: true,
+                createdAt: true,
                 author: {
                     select: {
                         id: true,
@@ -71,7 +71,7 @@ export async function getInvites(app: FastifyInstance) {
                 },
             },
             orderBy: {
-                CreatedAt: 'desc',
+                createdAt: 'desc',
             },
         })
 
@@ -81,7 +81,7 @@ export async function getInvites(app: FastifyInstance) {
                 id: invite.id,
                 email: invite.email,
                 role: invite.role,
-                createdAt: invite.CreatedAt, // 🔑 tradução obrigatória
+                createdAt: invite.createdAt, // 🔑 tradução obrigatória
 
                 author: invite.author
                     ? {

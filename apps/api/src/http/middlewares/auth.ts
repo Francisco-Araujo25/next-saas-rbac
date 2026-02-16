@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export const auth = fastifyPlugin (async (app: FastifyInstance) => {
     app.addHook('preHandler', async (request) => {
+
         request.getCurrentUserId = async () => {
             try {
                 const { sub } = await request.jwtVerify<{ sub: string }>()
@@ -16,7 +17,9 @@ export const auth = fastifyPlugin (async (app: FastifyInstance) => {
         }
 
         request.getUserMembership = async (slug: string) => {
+
             const userId = await request.getCurrentUserId()
+
             const member = await prisma.member.findFirst({
             where: {
                 userId,

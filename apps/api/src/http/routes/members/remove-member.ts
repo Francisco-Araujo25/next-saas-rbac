@@ -13,7 +13,7 @@ export async function removeMember(app: FastifyInstance) {
     app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .delete('/organizations/:slug/members',
+    .delete('/organizations/:slug/members/:memberId',
         {
         schema: {
             tags: ['members'],

@@ -32,10 +32,10 @@ export async function createOrganization(app: FastifyInstance) {
         const userId = await request.getCurrentUserId()
         const { name, domain, shouldAttachUsersByDomain } = request.body
 
-        if (domain) {
-            const organizationByDomain = await prisma.organization.findUnique({
-                where: { domain }
-            })
+        if (domain && domain.trim() !== "") { // ✅ Garante que não é string vazia
+                const organizationByDomain = await prisma.organization.findUnique({
+                    where: { domain }
+                })
 
             if (organizationByDomain) {
                 throw new BadRequestError('Another organization with sane domain already exists.',

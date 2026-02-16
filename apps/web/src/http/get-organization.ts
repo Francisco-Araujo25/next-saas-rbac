@@ -1,3 +1,4 @@
+import { Role } from "@saas/auth"
 import { api } from "./api-client"
 
 interface GetOrganizationResponse {
@@ -11,6 +12,7 @@ interface GetOrganizationResponse {
     createdAt: string
     updatedAt: string
     ownerId: string
+    role: Role
 }
 }
 

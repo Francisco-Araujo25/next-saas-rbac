@@ -24,7 +24,7 @@ export function ProjectForm() {
             },
           )
     return (
-           <form onClick={handleSubmit} className="space-y-4">
+           <form onSubmit={handleSubmit} className="space-y-4">
               {success === false && message && (
                 <Alert variant="destructive">
                     <AlertTriangle className="size-4" />

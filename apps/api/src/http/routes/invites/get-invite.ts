@@ -1,86 +1,87 @@
-
+import { auth } from "@/http/middlewares/auth";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-
 import { z } from 'zod'
 import { prisma } from "@/lib/prisma";
+import { UnauthorizedError } from "../_errors/unauthorized-error";
+import { getUserPermissions } from "@/utils/get-user-permissions";
 import { roleSchema } from "@saas/auth";
-import { BadRequestError } from "../_errors/bad-request-error";
 
-export async function getInvite(app: FastifyInstance) {
+export async function getInvites(app: FastifyInstance) {
     app
     .withTypeProvider<ZodTypeProvider>()
-    .get('/invites/:inviteId', 
-        {
+    .register(auth)
+    .get('/organizations/:slug/invites', {
         schema: {
             tags: ['invites'],
-            summary: 'Get an invite',
-           
+            summary: 'Get all organization invites',
+            security: [{ bearerAuth: [] }],
             params: z.object({
-                inviteId: z.string().uuid(),
+                slug: z.string(),
             }),
             response: {
                 200: z.object({
-                    invite: z.object({
+                    invites: z.array(z.object({  // ✅ Remove o "invite:" wrapper
+                        id: z.string().uuid(),
+                        role: roleSchema,
+                        email: z.string().email(),
+                        createdAt: z.date(),
+                        author: z.object({
                             id: z.string().uuid(),
-                            role: roleSchema,
-                            email: z.string().email(),
-                            createdAt: z.date(),
-                            organization: z.object ({
-                            name: z.string(),
-                         }),
-                         
-                          author: z.object ({
-                                id: z.string().uuid(),
-                                name: z.string().nullable(),
-                                avatarUrl: z.string().url().nullable(),
-                            }).nullable(),
-                        }),
-                    }),
+                            name: z.string().nullable(),
+                        }).nullable(),
+                    })),
+                })
             },
         },
-    }, 
+    },
     async (request) => {
-         const { inviteId } = request.params
+        const { slug } = request.params
+        const userId = await request.getCurrentUserId()
+        const { organization, membership } = await request.getUserMembership(slug)
 
-         const invite = await prisma.invite.findUnique({
+        const { cannot } = getUserPermissions(userId, membership.role)
+
+        if (cannot('get', 'Invite')) {
+            throw new UnauthorizedError(
+                `You're not allowed to get organization invites.`
+            )
+        }
+
+        const invites = await prisma.invite.findMany({
             where: {
-                id: inviteId,
+                organizationId: organization.id,
             },
             select: {
                 id: true,
                 email: true,
                 role: true,
-                CreatedAt: true,
-                        organization: {   // <-- adicionado
-                        select: { name: true },
-                        },
-
+                createdAt: true,
                 author: {
                     select: {
                         id: true,
                         name: true,
-                        avatarUrl: true,
                     },
                 },
-            }
-         })
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+        })
 
-      if (!invite) {
-        throw new BadRequestError('Invite not found')
-      }
-
-      return { 
-         invite: {
-        id: invite.id,
-        email: invite.email,
-        role: invite.role,
-        createdAt: invite.CreatedAt, 
-
-        organization: invite.organization,
-        author: invite.author,
-  },
-       }
-    }, 
-)
+        return {
+            invites: invites.map(invite => ({  // ✅ Remove o "invite:" wrapper
+                id: invite.id,
+                email: invite.email,
+                role: invite.role,
+                createdAt: invite.createdAt,
+                author: invite.author
+                    ? {
+                        id: invite.author.id,
+                        name: invite.author.name,
+                    }
+                    : null,
+            })),
+        }
+    })
 }

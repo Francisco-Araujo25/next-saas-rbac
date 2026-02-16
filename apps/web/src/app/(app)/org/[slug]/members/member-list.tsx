@@ -69,7 +69,7 @@ export  async function MemberList() {
                                             <span className="text-xs text-muted-foreground">{member.email}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="py-2 5">
+                                    <TableCell className="py-2.5">
                                         <div className="flex items-center justify-end gap-2">
                                             {permissions?.can('transfer_ownership', authOrganization) && (
                                                 <Button size="sm" variant="ghost">

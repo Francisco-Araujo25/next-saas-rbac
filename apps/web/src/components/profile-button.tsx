@@ -1,7 +1,7 @@
 import { ChevronDown, LogOut } from "lucide-react";
 
 import { auth } from "@/auth/auth";
-
+import { signOutAction } from "@/app/auth/actions"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
@@ -44,10 +44,12 @@ export async function ProfileButton() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                    <a href="/api/auth/sign-out">
-                        <LogOut className="mr-2 size-4" />
-                        Sign Out
-                    </a>
+                  <form action={signOutAction} className="w-full">
+                        <button type="submit" className="flex w-full items-center text-sm outline-none">
+                            <LogOut className="mr-2 size-4" />
+                            Sign Out
+                        </button>
+                    </form>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

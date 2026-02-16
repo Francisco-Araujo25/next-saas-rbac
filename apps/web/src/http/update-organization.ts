@@ -5,6 +5,7 @@ interface UpdateOrganizationRequest {
     name: string
     domain: string | null
     shouldAttachUsersByDomain: boolean
+    avatar?: File  // ✅ Adiciona
 }
 
 type UpdateOrganizationResponse = void
@@ -14,13 +15,14 @@ export async function updateOrganization({
     name,
     domain,
     shouldAttachUsersByDomain,
-}:   UpdateOrganizationRequest): Promise<UpdateOrganizationResponse> {
-     await api
-    .post(`organizations/${org}`, {
+    avatar,  // ✅ Adiciona
+}: UpdateOrganizationRequest): Promise<UpdateOrganizationResponse> {
+    await api.put(`organizations/${org}`, {
         json: {
             name,
             domain,
             shouldAttachUsersByDomain,
+            avatar,  // ✅ Adiciona
         },
     })
 }

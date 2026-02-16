@@ -11,7 +11,9 @@ export async function Invites() {
     // Necessário usar 'await' para aguardar a resolução da Promise
     const currentOrg = await getCurrentOrg()
     const permissions = await ability()
-    const  {invites } =  await getInvites(currentOrg!)
+    const  { invites } =  await getInvites(currentOrg!)
+
+   
 
     return (
         <div className="space-y-4">
@@ -33,7 +35,8 @@ export async function Invites() {
             <div className="rounded border">
                 <Table>
                     <TableBody>
-                        {invites.map(invite => {
+                        {invites.map((item) => {
+                            const invite = item.invite
                             return (
                                 <TableRow key={invite.id}>
                                     <TableCell className="py-2.5">
@@ -44,10 +47,10 @@ export async function Invites() {
                                     <TableCell className="py-2.5 font-medium">
                                        {invite.role}
                                     </TableCell>
-                                    <TableCell className="py-2 5">
+                                    <TableCell className="py-2.5">
                                          <div className="flex justify-end">
                                             {permissions?.can('delete', 'Invite') && (
-                                                <RevokeInviteButton inviteId="{invite.id" />
+                                                <RevokeInviteButton inviteId={invite.id} />
                                             )}
                                         </div>
                                     </TableCell>
@@ -67,6 +70,4 @@ export async function Invites() {
 
         </div>
     )
-
-    return <div>Invites</div>
 }

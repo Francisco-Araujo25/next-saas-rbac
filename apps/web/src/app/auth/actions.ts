@@ -3,6 +3,19 @@
 import { redirect } from "next/navigation"
 import { env } from "process"
 
+import { cookies } from "next/headers" // Importe cookies
+
+// ... sua função signInWithGithub atual
+
+export async function signOutAction() {
+    const cookieStore = await cookies()
+    
+    cookieStore.delete('token')
+    cookieStore.delete('org')
+
+    redirect('/auth/sign-in')
+}
+
 export async function signInWithGithub() {
     const githubSignInURL = new URL('login/oauth/authorize', 'https://github.com')
 

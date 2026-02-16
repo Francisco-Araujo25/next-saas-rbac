@@ -1,3 +1,4 @@
+
 import { ChevronsUpDown, PlusCircle } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -8,9 +9,17 @@ import { getOrganizations } from "@/http/get-organizations";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
+}
 export async function OrganizationSwitcher() {
     const cookieStore = await cookies()
-    const currentOrg =  getCurrentOrg()
+    const currentOrg =  await getCurrentOrg()
     const { organizations } = await getOrganizations()
 
     const currentOrganization = organizations.find((org) => org.slug === currentOrg, 
@@ -20,12 +29,15 @@ export async function OrganizationSwitcher() {
             <DropdownMenuTrigger className="flex w-[168px] items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-primary">
                 { currentOrganization ? (
                     <>
-                     <Avatar className="size-4">
-                         {typeof currentOrganization.avatarUrl === "string" && (
-                           <AvatarImage src={currentOrganization.avatarUrl} />
-                          )} 
-                        <AvatarFallback />
-                     </Avatar>
+           <Avatar className="mr-2 size-4">
+                {currentOrganization.avatarUrl ? (
+                    <AvatarImage src={currentOrganization.avatarUrl} />
+                ) : null}
+                {/* O Fallback aparece se a imagem for null ou falhar */}
+                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-[8px] text-white">
+                    {getInitials(currentOrganization.name)}
+                </AvatarFallback>
+            </Avatar>
                   <span className="truncate text-left">{currentOrganization.name}</span>
                     </>
                 ) : (
@@ -53,14 +65,13 @@ export async function OrganizationSwitcher() {
                     }) }
 
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator>
                     <DropdownMenuItem asChild>
                         <Link href="/create-organization">
                             <PlusCircle className="mr-2 size-4" />
                             Create new
                         </Link>
                     </DropdownMenuItem>
-                </DropdownMenuSeparator>
+                <DropdownMenuSeparator />
             </DropdownMenuContent>
         </DropdownMenu>
     )

@@ -49,7 +49,7 @@ export async function acceptInvite(app: FastifyInstance) {
         throw new BadRequestError('User not found')
       }
 
-      if (invite.email === user.email) {
+      if (invite.email !== user.email) {
         throw new BadRequestError('This invite belongs to another user.')
       }
 

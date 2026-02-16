@@ -8,11 +8,11 @@ interface RevokeInviteButtonProps {
     inviteId: string
 }
 
-export function RevokeInviteButton({
-    inviteId,
-}: RevokeInviteButtonProps ) {
+export function  RevokeInviteButton({ inviteId }: RevokeInviteButtonProps) {
+    console.log('🎯 InviteId no botão:', inviteId)  // ✅ Adiciona
     return (
-        <form action={revokeInviteAction.bind(null, inviteId)}>
+        <form action={revokeInviteAction}>
+            <input type="hidden" name="inviteId" value={inviteId} />
          <Button size="sm" variant="destructive">
             <XOctagon className="size-4 mr-2" />
                  Revoke invite

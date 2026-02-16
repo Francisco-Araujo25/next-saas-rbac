@@ -7,7 +7,7 @@ import { Providers } from "./providers";
 
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "Brick Labs",
 };
 
 export default function RootLayout({

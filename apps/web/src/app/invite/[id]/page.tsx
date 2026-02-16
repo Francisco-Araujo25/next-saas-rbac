@@ -72,7 +72,7 @@ export default async function InvitePage({ params }: InvitePageProps) {
                 <Separator />
 
                 {!isUserAuthenticated && (
-                    <form action="signInFromInvite">
+                    <form action={signInFromInvite}>
                         <Button type="submit" variant="secondary" className="w-full">
                             <LogIn className="size-4 mr-2 " />
                             Sign in to accept the invite
@@ -81,7 +81,7 @@ export default async function InvitePage({ params }: InvitePageProps) {
                 )}
 
                 {userIsAuthenticatedWithSameEmailFromInvite && (
-                    <form action="acceptIviteAction">
+                    <form action={acceptInviteAction}>
                         <Button type="submit" variant="secondary" className="w-full">
                             <CheckCircle className="size-4 mr-2 " />
                              Join {invite.organization.name}

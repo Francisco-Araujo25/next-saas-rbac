@@ -10,5 +10,6 @@ export async function revokeInvite({
   inviteId,
 }:   RevokeInviteRequest) {
      await  
-        api.delete(`organizations/$[org]/invites/${inviteId}`)
+        api.delete(`organizations/${org}/invites/${inviteId}`)
+        return true
 }
