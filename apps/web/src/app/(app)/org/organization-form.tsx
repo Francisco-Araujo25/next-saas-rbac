@@ -23,9 +23,7 @@ export function OrganizationForm({
     initialData,
 }: OrganizationFormProps) {
     // ✅ Move estado para dentro do componente
-    const [previewUrl, setPreviewUrl] = useState<string | null>(
-        initialData?.avatarUrl || null
-    )
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
     // ✅ Move função para dentro do componente
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
